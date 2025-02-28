@@ -1,0 +1,28 @@
+<!-- history.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">历史记录</text>
+    <view class="clear-btn" bindtap="clearHistory" wx:if="{{!isEmpty}}">清空</view>
+  </view>
+  
+  <view class="history-list" wx:if="{{!isEmpty}}">
+    <view class="history-item" wx:for="{{historyList}}" wx:key="timestamp" bindtap="viewHistoryDetail" data-index="{{index}}">
+      <view class="item-header">
+        <view class="analysis-date">{{item.currentDate}}</view>
+        <view class="birth-info">{{item.birthInfo}}</view>
+      </view>
+      <view class="item-content">
+        <text class="content-preview">{{item.analysisContent.substring(0, 60)}}...</text>
+      </view>
+      <view class="item-footer">
+        <view class="arrow">></view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty-state" wx:if="{{isEmpty}}">
+    <image class="empty-icon" src="/images/empty.svg" mode="aspectFit"></image>
+    <text class="empty-text">暂无历史记录</text>
+    <button class="go-analysis-btn" bindtap="goToAnalysis">立即分析</button>
+  </view>
+</view>

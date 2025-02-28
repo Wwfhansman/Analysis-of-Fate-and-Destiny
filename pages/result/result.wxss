@@ -1,0 +1,119 @@
+/* result.wxss */
+page {
+  background-color: #f9f9f9;
+  min-height: 100%;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 30rpx;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.header {
+  margin-bottom: 30rpx;
+}
+
+.title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.date {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.birth-info {
+  font-size: 28rpx;
+  color: #666;
+  background-color: rgba(106, 124, 183, 0.1);
+  padding: 16rpx 24rpx;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.result-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-bottom: 40rpx;
+  padding: 30rpx;
+}
+
+.content-section {
+  padding: 10rpx;
+}
+
+.content-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+
+.btn {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 44rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+  margin: 0 15rpx;
+}
+
+.btn:first-child {
+  margin-left: 0;
+}
+
+.btn:last-child {
+  margin-right: 0;
+}
+
+.btn-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+
+.share-btn {
+  background: linear-gradient(135deg, #6e8efb, #4a6cf7);
+  color: white;
+}
+
+.back-btn {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.disclaimer {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.5;
+  padding: 20rpx 0;
+}

@@ -1,0 +1,31 @@
+<!-- theory.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">中国传统命理分析原理</text>
+  </view>
+  
+  <view class="tab-container">
+    <scroll-view scroll-x="true" class="tab-scroll">
+      <view class="tab-bar">
+        <view class="tab-item {{currentTab === index ? 'active' : ''}}" 
+              wx:for="{{theoryContent}}" 
+              wx:key="title" 
+              bindtap="switchTab" 
+              data-index="{{index}}">
+          {{item.title}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <view class="content-container">
+    <view class="theory-content">
+      <view class="content-title">{{theoryContent[currentTab].title}}</view>
+      <text class="content-text">{{theoryContent[currentTab].content}}</text>
+    </view>
+  </view>
+  
+  <view class="footer">
+    <text class="footer-text">本内容仅供参考，命理分析结果不应作为人生决策的唯一依据</text>
+  </view>
+</view>
