@@ -4,6 +4,6 @@
   "setting": {
     "compileHotReLoad": true,
     "skylineRenderEnable": true,
-    "urlCheck": false
+    "urlCheck": true
   }
 }

@@ -18,15 +18,7 @@ Page({
   },
 
   onLoad() {
-    // 页面加载时的初始化逻辑
-    // 设置默认日期为当前日期
-    const now = new Date();
-    this.setData({
-      year: now.getFullYear().toString(),
-      monthIndex: now.getMonth(),
-      dayIndex: now.getDate() - 1,
-      hourIndex: now.getHours()
-    });
+    // 页面加载时不设置默认时间
   },
 
   onPreferenceChange(e) {

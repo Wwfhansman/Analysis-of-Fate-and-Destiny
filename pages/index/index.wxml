@@ -61,7 +61,7 @@
       <view class="progress-bar">
         <view class="progress-inner"></view>
       </view>
-      <view class="loading-text">请耐心等待约30秒...</view>
+      <view class="loading-text">请耐心等待约45秒...</view>
     </view>
   </view>
 </view>
