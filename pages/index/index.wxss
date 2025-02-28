@@ -185,7 +185,7 @@ page {
   height: 100%;
   background: linear-gradient(90deg, #6e8efb, #4a6cf7);
   border-radius: 8rpx;
-  animation: progress-animation 45s linear forwards;
+  animation: progress-animation 25s linear forwards;
 }
 
 .loading-text {
