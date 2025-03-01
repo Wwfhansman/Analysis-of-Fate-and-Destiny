@@ -1,13 +1,13 @@
 <!-- my.wxml -->
 <view class="container">
-  <view class="user-info">
+  <view class="user-info" style="height: 299rpx; display: flex; box-sizing: border-box">
     <view class="avatar-wrapper">
-      <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-        <image class="avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+      <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" style="position: relative; left: -49rpx; top: -37rpx; height: 233rpx; display: block; box-sizing: border-box; width: 256rpx">
+        <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" style="height: 258rpx; display: inline-block; box-sizing: border-box; position: relative; left: -10rpx; top: 0rpx; width: 275rpx"></image>
       </button>
     </view>
     <view class="nickname">
-      <text wx:if="{{!hasUserInfo}}">点击头像登录</text>
+      <text wx:if="{{!hasUserInfo}}" style="position: relative; left: 0rpx; top: 18rpx; height: -16rpx; display: inline; box-sizing: content-box">点击头像登录</text>
       <text wx:else>{{userInfo.nickName}}</text>
     </view>
   </view>
@@ -30,6 +30,6 @@
   </view>
 
   <view class="version-info">
-    <text>版本 1.0.0</text>
+    <text style="position: relative; left: 0rpx; top: 539rpx">版本 1.0.5</text>
   </view>
 </view>

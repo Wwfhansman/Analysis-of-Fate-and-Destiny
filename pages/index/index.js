@@ -13,7 +13,7 @@ Page({
     dayIndex: null,
     hourIndex: null,
     preferences: ['家庭', '学业', '健康', '事业', '姻缘', '财运', '综合'],
-    preferenceIndex: 3,
+    preferenceIndex: 6,
     isAnalyzing: false
   },
 
@@ -144,13 +144,16 @@ Page({
     }
   },
 
-  // 获取偏好文本
+  // 获取偏好文本，'家庭', '学业', '健康', '事业', '姻缘', '财运', '综合'
   getPreferenceText() {
     const preferenceMap = {
-      0: '事业',
-      1: '爱情',
-      2: '财运',
-      3: '综合'
+      0: '家庭',
+      1: '学业',
+      2: '健康',
+      3: '事业',
+      4: '姻缘',
+      5: '财运',
+      6: '综合'
     };
     return preferenceMap[this.data.preferenceIndex] || '综合';
   },
