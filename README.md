@@ -89,7 +89,7 @@ ml/
 
 ## API接口
 
-### CEZE大模型API
+### COZE大模型API
 
 提供命理分析服务
 

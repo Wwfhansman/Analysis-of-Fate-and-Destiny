@@ -2,7 +2,6 @@
 page {
   height: 100%;
   background-color: #f8f8f8;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .page-container {
@@ -48,12 +47,17 @@ page {
 .add-note {
   width: 80rpx;
   height: 80rpx;
-  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  background-color: #87CEEB;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4rpx 12rpx rgba(46, 125, 50, 0.3);
+  box-shadow: 0 2rpx 10rpx rgba(135, 206, 235, 0.3);
+  transition: opacity 0.3s ease;
+}
+
+.add-note:active {
+  opacity: 0.8;
 }
 
 .add-icon {
@@ -75,7 +79,7 @@ page {
   padding: 30rpx;
   margin-bottom: 30rpx;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .note-item:active {
@@ -155,11 +159,11 @@ page {
   width: 320rpx;
   height: 88rpx;
   line-height: 88rpx;
-  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  background: #87CEEB;
   color: #fff;
   font-size: 32rpx;
   border-radius: 44rpx;
-  box-shadow: 0 4rpx 12rpx rgba(46, 125, 50, 0.3);
+  box-shadow: 0 4rpx 12rpx rgba(135, 206, 235, 0.3);
 }
 
 /* 弹窗样式 */
@@ -314,6 +318,7 @@ page {
   text-align: center;
   border-radius: 12rpx;
   font-size: 32rpx;
+  font-weight: 500;
   transition: all 0.2s ease;
 }
 
@@ -323,9 +328,9 @@ page {
 }
 
 .save-btn {
-  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  background: #87CEEB;
   color: #fff;
-  box-shadow: 0 4rpx 12rpx rgba(46, 125, 50, 0.2);
+  box-shadow: 0 4rpx 12rpx rgba(135, 206, 235, 0.2);
 }
 
 .cancel-btn:active, .save-btn:active {

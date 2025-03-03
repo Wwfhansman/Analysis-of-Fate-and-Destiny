@@ -1,5 +1,6 @@
 // app.js
 App({
+
   onLaunch: function() {
     // 初始化云开发环境
     if (wx.cloud) {
@@ -126,55 +127,7 @@ App({
     });
   },
   
-  // 保存分析历史记录
-  saveAnalysisHistory: function(analysisData) {
-    try {
-      // 获取现有历史记录
-      let historyList = wx.getStorageSync('analysisHistory') || [];
-      
-      // 添加时间戳
-      analysisData.timestamp = new Date().getTime();
-      
-      // 将新记录添加到列表开头
-      historyList.unshift(analysisData);
-      
-      // 只保留最近5条记录
-      if (historyList.length > 5) {
-        historyList = historyList.slice(0, 5);
-      }
-      
-      // 保存到本地存储
-      wx.setStorageSync('analysisHistory', historyList);
-      
-      console.log('历史记录已保存', historyList);
-      return true;
-    } catch (error) {
-      console.error('保存历史记录失败:', error);
-      return false;
-    }
-  },
-  
-  // 获取分析历史记录
-  getAnalysisHistory: function() {
-    try {
-      const historyList = wx.getStorageSync('analysisHistory') || [];
-      return historyList;
-    } catch (error) {
-      console.error('获取历史记录失败:', error);
-      return [];
-    }
-  },
-  
-  // 清除分析历史记录
-  clearAnalysisHistory: function() {
-    try {
-      wx.removeStorageSync('analysisHistory');
-      return true;
-    } catch (error) {
-      console.error('清除历史记录失败:', error);
-      return false;
-    }
-  },
+
   
   globalData: {
     userInfo: null,

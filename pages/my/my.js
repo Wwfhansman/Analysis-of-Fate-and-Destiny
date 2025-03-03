@@ -28,11 +28,7 @@ Page({
     wx.setStorageSync('avatarUrl', avatarUrl);
   },
 
-  navigateToHistory() {
-    wx.navigateTo({
-      url: '/pages/history/history'
-    });
-  },
+
 
   navigateToAnalysis() {
     wx.navigateTo({

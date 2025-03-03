@@ -29,7 +29,7 @@
     <view class="empty-state" wx:if="{{notes.length === 0}}">
       <image class="empty-icon" src="/images/empty-notes.svg" mode="aspectFit"></image>
       <text class="empty-text">今天还没有记录哦</text>
-      <button class="add-note-btn" bindtap="showNoteModal">添加随记</button>
+      <button class="add-note-btn" bindtap="showNoteModal" style="position: relative; left: 0rpx; top: 43rpx">添加随记</button>
     </view>
   </view>
   

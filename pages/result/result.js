@@ -3,7 +3,7 @@ Page({
     currentDate: '',
     analysisContent: '',
     birthInfo: '', // 用户出生信息
-    fromHistory: false, // 是否来自历史记录页面
+  
     isLoading: true // 加载状态
   },
 
@@ -57,37 +57,11 @@ Page({
         isLoading: false
       });
       
-      // 保存到历史记录
-      if (!this.data.fromHistory) {
-        this.saveToHistory({
-          currentDate: this.data.currentDate,
-          birthInfo: this.data.birthInfo,
-          analysisContent: this.data.analysisContent
-        });
-      }
+
     });
   },
   
-  // 保存到历史记录
-  saveToHistory: function(result) {
-    try {
-      let history = wx.getStorageSync('analysis_history') || [];
-      history.unshift({
-        id: Date.now(),
-        date: result.currentDate,
-        birthInfo: result.birthInfo,
-        content: result.analysisContent,
-        timestamp: new Date().getTime()
-      });
-      if (history.length > 50) {
-        history = history.slice(0, 50);
-      }
-      wx.setStorageSync('analysis_history', history);
-      console.log('历史记录保存成功');
-    } catch (error) {
-      console.error('保存历史记录失败:', error);
-    }
-  },
+
 
   // 设置默认数据
   setDefaultData() {

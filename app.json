@@ -3,7 +3,6 @@
     "pages/index/index",
     "pages/result/result",
     "pages/my/my",
-    "pages/history/history",
     "pages/theory/theory",
     "pages/analysis/analysis"
   ],
