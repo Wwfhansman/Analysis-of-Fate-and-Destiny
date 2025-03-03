@@ -1,0 +1,67 @@
+<!--analysis.wxml-->
+<view class="page-container">
+  <view class="container">
+    <view class="title">传统命理分析</view>
+    
+    <view class="form-container">
+      <view class="form-group">
+        <view class="form-item">
+          <text class="label">年</text>
+          <input type="number" class="input" placeholder="请输入年份" model:value="{{year}}" />
+        </view>
+        
+        <view class="form-item">
+          <text class="label">月</text>
+          <picker mode="selector" range="{{months}}" value="{{monthIndex}}" bindchange="onMonthChange">
+            <view class="picker-view">{{months[monthIndex] || '请选择月份'}}</view>
+          </picker>
+        </view>
+        
+        <view class="form-item">
+          <text class="label">日</text>
+          <picker mode="selector" range="{{days}}" value="{{dayIndex}}" bindchange="onDayChange">
+            <view class="picker-view">{{days[dayIndex] || '请选择日期'}}</view>
+          </picker>
+        </view>
+        
+        <view class="form-item">
+          <text class="label">时</text>
+          <picker mode="selector" range="{{hours}}" value="{{hourIndex}}" bindchange="onHourChange">
+            <view class="picker-view">{{hours[hourIndex] || '请选择时辰'}}</view>
+          </picker>
+        </view>
+      </view>
+      
+      <view class="preference-container">
+        <text class="label">推理偏好</text>
+        <picker bindchange="onPreferenceChange" value="{{preferenceIndex}}" range="{{preferences}}">
+          <view class="picker-view">{{preferences[preferenceIndex]}}</view>
+        </picker>
+      </view>
+
+      <button class="submit-btn {{isAnalyzing ? 'analyzing' : ''}}" bindtap="startAnalysis" disabled="{{isAnalyzing}}">
+        <text>{{isAnalyzing ? '正在推理' : '开始推理'}}</text>
+        <view class="loading-dots" wx:if="{{isAnalyzing}}">
+          <view class="dot"></view>
+          <view class="dot"></view>
+          <view class="dot"></view>
+        </view>
+      </button>
+
+      <view class="tips">
+        <text>我们不迷信，仅提供交流分享\n请理性对待每一次咨询</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 自定义加载动画 -->
+  <view class="custom-loading" wx:if="{{isAnalyzing}}">
+    <view class="loading-container">
+      <view class="loading-title">正在生成命理分析</view>
+      <view class="progress-bar">
+        <view class="progress-inner"></view>
+      </view>
+      <view class="loading-text">请耐心等待约25秒...</view>
+    </view>
+  </view>
+</view>

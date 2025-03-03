@@ -1,67 +1,74 @@
 <!--index.wxml-->
 <view class="page-container">
-  <view class="container">
-    <view class="title">命理分析体验</view>
-    
-    <view class="form-container">
-      <view class="form-group">
-        <view class="form-item">
-          <text class="label">年</text>
-          <input type="number" class="input" placeholder="请输入年份" model:value="{{year}}" />
-        </view>
-        
-        <view class="form-item">
-          <text class="label">月</text>
-          <picker mode="selector" range="{{months}}" value="{{monthIndex}}" bindchange="onMonthChange">
-            <view class="picker-view">{{months[monthIndex] || '请选择月份'}}</view>
-          </picker>
-        </view>
-        
-        <view class="form-item">
-          <text class="label">日</text>
-          <picker mode="selector" range="{{days}}" value="{{dayIndex}}" bindchange="onDayChange">
-            <view class="picker-view">{{days[dayIndex] || '请选择日期'}}</view>
-          </picker>
-        </view>
-        
-        <view class="form-item">
-          <text class="label">时</text>
-          <picker mode="selector" range="{{hours}}" value="{{hourIndex}}" bindchange="onHourChange">
-            <view class="picker-view">{{hours[hourIndex] || '请选择时辰'}}</view>
-          </picker>
-        </view>
+  <view class="header">
+    <picker mode="date" value="{{currentDate}}" bindchange="onDateChange">
+      <view class="date-picker">
+        <text class="current-date">{{formattedDate}}</text>
+        <view class="arrow-down"></view>
       </view>
-      
-      <view class="preference-container">
-        <text class="label">推理偏好</text>
-        <picker bindchange="onPreferenceChange" value="{{preferenceIndex}}" range="{{preferences}}">
-          <view class="picker-view">{{preferences[preferenceIndex]}}</view>
-        </picker>
-      </view>
-
-      <button class="submit-btn {{isAnalyzing ? 'analyzing' : ''}}" bindtap="startAnalysis" disabled="{{isAnalyzing}}">
-        <text>{{isAnalyzing ? '正在推理' : '开始推理'}}</text>
-        <view class="loading-dots" wx:if="{{isAnalyzing}}">
-          <view class="dot"></view>
-          <view class="dot"></view>
-          <view class="dot"></view>
-        </view>
-      </button>
-
-      <view class="tips">
-        <text>我们不迷信，仅提供交流分享\n请理性对待每一次咨询</text>
-      </view>
+    </picker>
+    <view class="add-note" bindtap="showNoteModal">
+      <text class="add-icon">+</text>
     </view>
   </view>
   
-  <!-- 自定义加载动画 -->
-  <view class="custom-loading" wx:if="{{isAnalyzing}}">
-    <view class="loading-container">
-      <view class="loading-title">正在生成命理分析</view>
-      <view class="progress-bar">
-        <view class="progress-inner"></view>
+  <view class="notes-container">
+    <block wx:if="{{notes.length > 0}}">
+      <view class="note-item" wx:for="{{notes}}" wx:key="id" bindtap="editNote" data-id="{{item.id}}">
+        <view class="note-header">
+          <view class="note-title">
+            <view class="mood-indicator {{item.mood === '开心' ? 'happy' : item.mood === '不开心' ? 'sad' : 'thought'}}"></view>
+            <text>{{item.title || '无标题'}}</text>
+          </view>
+          <text class="note-time">{{item.time}}</text>
+        </view>
+        <view class="note-content">{{item.content}}</view>
       </view>
-      <view class="loading-text">请耐心等待约25秒...</view>
+    </block>
+    
+    <view class="empty-state" wx:if="{{notes.length === 0}}">
+      <image class="empty-icon" src="/images/empty-notes.svg" mode="aspectFit"></image>
+      <text class="empty-text">今天还没有记录哦</text>
+      <button class="add-note-btn" bindtap="showNoteModal">添加随记</button>
+    </view>
+  </view>
+  
+  <!-- 添加/编辑笔记弹窗 -->
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-header-text">{{editingNoteId ? '编辑随记' : '添加随记'}}</text>
+        <view class="close-btn" bindtap="hideModal">×</view>
+      </view>
+      
+      <view class="mood-selector">
+        <view class="mood-option {{currentMood === '开心' ? 'mood-option-selected' : ''}} mood-option-first" bindtap="selectMood" data-mood="开心">
+          <view class="mood-icon happy"></view>
+          <text>开心</text>
+        </view>
+        <view class="mood-option {{currentMood === '不开心' ? 'mood-option-selected' : ''}}" bindtap="selectMood" data-mood="不开心">
+          <view class="mood-icon sad"></view>
+          <text>不开心</text>
+        </view>
+        <view class="mood-option {{currentMood === '思考' ? 'mood-option-selected' : ''}} mood-option-last" bindtap="selectMood" data-mood="思考">
+          <view class="mood-icon thought"></view>
+          <text>思考</text>
+        </view>
+      </view>
+      
+      <view class="form-item">
+        <input class="note-title-input" placeholder="标题（选填）" value="{{currentTitle}}" bindinput="onTitleInput" />
+      </view>
+      
+      <view class="form-item">
+        <textarea class="note-content-input" placeholder="今天的想法..." value="{{currentContent}}" bindinput="onContentInput" maxlength="500" auto-height />
+      </view>
+      
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideModal">取消</button>
+        <button class="save-btn" bindtap="saveNote">保存</button>
+      </view>
     </view>
   </view>
 </view>

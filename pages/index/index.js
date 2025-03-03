@@ -14,11 +14,26 @@ Page({
     hourIndex: null,
     preferences: ['家庭', '学业', '健康', '事业', '姻缘', '财运', '综合'],
     preferenceIndex: 6,
-    isAnalyzing: false
+    isAnalyzing: false,
+    currentDate: new Date().toISOString().split('T')[0], // 当前选择的日期，格式：YYYY-MM-DD
+    formattedDate: '', // 格式化后的日期显示
+    notes: [], // 当前日期的笔记列表
+    showModal: false, // 是否显示添加/编辑笔记弹窗
+    currentMood: '开心', // 当前选择的心情
+    currentTitle: '', // 当前编辑的标题
+    currentContent: '', // 当前编辑的内容
+    editingNoteId: null // 当前正在编辑的笔记ID，为null表示新增
   },
 
   onLoad() {
     // 页面加载时不设置默认时间
+    this.formatCurrentDate();
+    this.loadNotes();
+  },
+
+  onShow() {
+    // 每次页面显示时重新加载笔记
+    this.loadNotes();
   },
 
   onPreferenceChange(e) {
@@ -267,5 +282,160 @@ Page({
     content = content.replace(/\n{3,}/g, '\n\n');
     
     return content;
+  },
+
+  // 格式化当前日期为显示格式
+  formatCurrentDate() {
+    const date = new Date(this.data.currentDate);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const weekday = weekdays[date.getDay()];
+    const formattedDate = `${year}年${month}月${day}日 ${weekday}`;
+    this.setData({ formattedDate });
+  },
+
+  // 日期选择器变更
+  onDateChange(e) {
+    this.setData({
+      currentDate: e.detail.value
+    });
+    this.formatCurrentDate();
+    this.loadNotes();
+  },
+
+  // 加载指定日期的笔记
+  loadNotes() {
+    const date = this.data.currentDate;
+    // 从本地存储获取所有笔记
+    const allNotes = wx.getStorageSync('notes') || {};
+    // 获取当前日期的笔记
+    const dateNotes = allNotes[date] || [];
+    
+    // 按时间倒序排列
+    const sortedNotes = dateNotes.sort((a, b) => {
+      return new Date(b.timestamp) - new Date(a.timestamp);
+    });
+    
+    this.setData({
+      notes: sortedNotes
+    });
+  },
+
+  // 显示添加笔记弹窗
+  showNoteModal() {
+    this.setData({
+      showModal: true,
+      currentMood: '开心',
+      currentTitle: '',
+      currentContent: '',
+      editingNoteId: null
+    });
+  },
+
+  // 隐藏弹窗
+  hideModal() {
+    this.setData({
+      showModal: false
+    });
+  },
+
+  // 选择心情
+  selectMood(e) {
+    this.setData({
+      currentMood: e.currentTarget.dataset.mood
+    });
+  },
+
+  // 标题输入
+  onTitleInput(e) {
+    this.setData({
+      currentTitle: e.detail.value
+    });
+  },
+
+  // 内容输入
+  onContentInput(e) {
+    this.setData({
+      currentContent: e.detail.value
+    });
+  },
+
+  // 编辑已有笔记
+  editNote(e) {
+    const noteId = e.currentTarget.dataset.id;
+    const note = this.data.notes.find(n => n.id === noteId);
+    
+    if (note) {
+      this.setData({
+        showModal: true,
+        currentMood: note.mood,
+        currentTitle: note.title,
+        currentContent: note.content,
+        editingNoteId: noteId
+      });
+    }
+  },
+
+  // 保存笔记
+  saveNote() {
+    const { currentDate, currentMood, currentTitle, currentContent, editingNoteId } = this.data;
+    
+    // 验证内容不能为空
+    if (!currentContent.trim()) {
+      wx.showToast({
+        title: '内容不能为空',
+        icon: 'none'
+      });
+      return;
+    }
+    
+    // 获取所有笔记
+    const allNotes = wx.getStorageSync('notes') || {};
+    // 获取当前日期的笔记
+    const dateNotes = allNotes[currentDate] || [];
+    
+    const now = new Date();
+    const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    
+    if (editingNoteId) {
+      // 编辑已有笔记
+      const noteIndex = dateNotes.findIndex(n => n.id === editingNoteId);
+      if (noteIndex !== -1) {
+        dateNotes[noteIndex] = {
+          ...dateNotes[noteIndex],
+          mood: currentMood,
+          title: currentTitle,
+          content: currentContent,
+          time: timeString,
+          timestamp: now.getTime()
+        };
+      }
+    } else {
+      // 添加新笔记
+      const newNote = {
+        id: now.getTime().toString(), // 使用时间戳作为ID
+        mood: currentMood,
+        title: currentTitle,
+        content: currentContent,
+        time: timeString,
+        timestamp: now.getTime()
+      };
+      dateNotes.push(newNote);
+    }
+    
+    // 更新存储
+    allNotes[currentDate] = dateNotes;
+    wx.setStorageSync('notes', allNotes);
+    
+    // 刷新列表并关闭弹窗
+    this.loadNotes();
+    this.hideModal();
+    
+    wx.showToast({
+      title: editingNoteId ? '修改成功' : '添加成功',
+      icon: 'success'
+    });
   }
 });

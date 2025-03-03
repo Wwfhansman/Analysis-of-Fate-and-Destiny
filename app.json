@@ -4,12 +4,13 @@
     "pages/result/result",
     "pages/my/my",
     "pages/history/history",
-    "pages/theory/theory"
+    "pages/theory/theory",
+    "pages/analysis/analysis"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "命理分析",
+    "navigationBarTitleText": "每日随记",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -19,7 +20,7 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "主页",
+        "text": "随记",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-active.png"
       },

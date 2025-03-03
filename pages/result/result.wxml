@@ -1,33 +1,27 @@
 <!-- result.wxml -->
 <view class="page-container">
   <view class="container">
-    <view class="header">
-      <view class="title-section">
-        <text class="title">命理分析结果</text>
-        <text class="date">{{currentDate}}</text>
+    <view class="result-container">
+      <view class="result-header">
+        <view class="result-title">命理分析结果</view>
+        <view class="result-date">{{currentDate}}</view>
+        <view class="birth-info" wx:if="{{birthInfo}}">出生信息：{{birthInfo}}</view>
       </view>
-      <view class="birth-info">
-        <text>{{birthInfo}}</text>
+      
+      <view class="loading-container" wx:if="{{isLoading}}">
+        <view class="loading-spinner"></view>
+        <view class="loading-text">正在生成分析结果...</view>
       </view>
-    </view>
-
-    <view class="result-card">
-      <view class="content-section">
-        <text class="content-text">{{analysisContent}}</text>
+      
+      <view class="result-content" wx:else>
+        <text class="analysis-text" decode="{{true}}" user-select="{{true}}">{{analysisContent}}</text>
       </view>
-    </view>
-
-    <view class="action-buttons">
-      <button class="btn share-btn" open-type="share">
-        <text>分享结果</text>
-      </button>
-      <button class="btn back-btn" bindtap="goBack">
-        <text>返回首页</text>
-      </button>
-    </view>
-
-    <view class="disclaimer">
-      <text>本分析结果仅供参考，切勿过分依赖\n请理性对待，保持积极心态</text>
+      
+      <view class="action-buttons">
+        <button class="action-button" bindtap="saveToFavorites">收藏</button>
+        <button class="action-button" bindtap="shareResult">分享</button>
+        <button class="action-button" bindtap="goBack">返回</button>
+      </view>
     </view>
   </view>
 </view>

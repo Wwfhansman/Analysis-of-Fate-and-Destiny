@@ -34,6 +34,12 @@ Page({
     });
   },
 
+  navigateToAnalysis() {
+    wx.navigateTo({
+      url: '/pages/analysis/analysis'
+    });
+  },
+
   navigateToTheory() {
     wx.navigateTo({
       url: '/pages/theory/theory'
@@ -47,4 +53,4 @@ Page({
       showCancel: false
     });
   }
-}); 
+});

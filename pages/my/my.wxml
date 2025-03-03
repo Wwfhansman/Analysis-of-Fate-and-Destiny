@@ -18,6 +18,11 @@
       <text class="arrow">></text>
     </view>
     
+    <view class="menu-item" bindtap="navigateToAnalysis">
+      <text class="menu-text">传统命理分析</text>
+      <text class="arrow">></text>
+    </view>
+    
     <view class="menu-item" bindtap="navigateToTheory">
       <text class="menu-text">中国传统命理分析原理</text>
       <text class="arrow">></text>
